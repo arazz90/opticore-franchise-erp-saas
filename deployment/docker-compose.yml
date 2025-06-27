@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb:10.5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./mariadb_data:/var/lib/mysql
+
+  redis-cache:
+    image: redis:6
+    restart: always
+
+  redis-queue:
+    image: redis:6
+    restart: always
+
+  redis-socketio:
+    image: redis:6
+    restart: always
+
+  frappe:
+    image: frappe/erpnext-worker:version-14
+    restart: always
+    depends_on:
+      - mariadb
+      - redis-cache
+      - redis-queue
+      - redis-socketio
+    environment:
+      - SITE_NAME=opticore.local
+      - DB_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+      - ADMIN_PASSWORD=admin
+      - INSTALL_APPS=erpnext
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites
+
+  nginx:
+    image: frappe/erpnext-nginx:version-14
+    restart: always
+    depends_on:
+      - frappe
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites
+      - ./deployment/nginx:/etc/nginx/conf.d
+
+volumes:
+  sites-vol:
+  mariadb_data:

@@ -1,0 +1,9 @@
+{
+  "doctype": "Loyalty Program Setup",
+  "fields": [
+    {"fieldname": "program_name", "fieldtype": "Data", "label": "Program Name"},
+    {"fieldname": "earning_percentage", "fieldtype": "Float", "label": "Earning %"},
+    {"fieldname": "redemption_rule", "fieldtype": "Table", "label": "Redemption Rules"},
+    {"fieldname": "expiry_in_months", "fieldtype": "Int", "label": "Points Expiry (Months)"}
+  ]
+}
