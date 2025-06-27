@@ -1,0 +1,26 @@
+name: Deploy to Production
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Docker Image
+      run: |
+        docker-compose -f deployment/docker-compose.yml build
+
+    - name: Push Docker Image to Registry (placeholder)
+      run: |
+        echo "✅ Push to private Docker registry logic goes here"
+
+    - name: Deploy to Production (placeholder)
+      run: |
+        echo "✅ SSH or Deployment script goes here"

@@ -1,0 +1,8 @@
+{
+  "doctype": "Loyalty Wallet",
+  "fields": [
+    {"fieldname": "customer", "fieldtype": "Link", "options": "Customer", "label": "Customer"},
+    {"fieldname": "balance_points", "fieldtype": "Float", "label": "Wallet Balance"},
+    {"fieldname": "last_earn_date", "fieldtype": "Date", "label": "Last Earned"}
+  ]
+}

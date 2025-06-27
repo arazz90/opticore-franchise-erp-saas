@@ -1,0 +1,30 @@
+name: Build & Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v1
+
+    - name: Build Docker Images
+      run: |
+        docker-compose -f deployment/docker-compose.yml build
+
+    - name: Run basic lint test
+      run: |
+        echo "✅ Lint test placeholder"
+
+    - name: Run basic unit tests (placeholder)
+      run: |
+        echo "✅ Unit test placeholder"
